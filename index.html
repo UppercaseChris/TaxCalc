@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">  
+    <title>Tax Calculator - Christopher Lessig</title>
+    <link rel="stylesheet" href="tax.css">
+    <script>
+        "use strict";
+        var $ = function(id) {
+            return document.getElementById(id);
+        };
+        var calculateTotal = function(salesPrice, taxAmount) {
+      var total = ((salesPrice * taxAmount) + salesPrice);
+      total = total.toFixed(2);
+      return total;
+    };
+    var processEntries = function() {
+            var salesPrice = parseFloat($("salesPrice").value);
+            var taxAmount = parseFloat($("taxAmount").value);
+
+            if (isNaN(salesPrice) || isNaN(taxAmount)) {
+                alert("Both entries must be numeric");
+            } else if (salesPrice <= 0 || taxAmount <= 0) {
+              alert("Both entries must be greater than zero");
+            } else {
+                $("total").value = calculateTotal(salesPrice, taxAmount);
+                $("total").focus();
+            }
+        };
+    window.onload = function() {
+            $("calculate").onclick = processEntries;
+            $("salesPrice").focus();
+        };
+    </script>
+</head>
+<body>
+    <main>
+        <h1>Calculate Sales Tax HERE</h1>
+        <label for="salesPrice">Sales Price:</label>
+    <input type="text" id="salesPrice"><br>
+        <label for="taxAmount">Tax Amount:</label>
+        <input type="text" id="taxAmount"><br>
+        <label for="total">Total Cost: </label>
+        <input type="text" id="total" disabled><br>
+        <label>&nbsp;</label>
+        <input type="button" id="calculate" value="Calculate Total"><br>
+    </main>
+</body>
+</html>
